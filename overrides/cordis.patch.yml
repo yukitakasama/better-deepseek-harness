@@ -1,0 +1,48 @@
+# better-deepseek-harness · profile patch 层
+#
+# 本文件由整合包携带，安装时落在 profile 根目录，作为「最后一层」应用
+# （dsh 的 profile patch 永远排在每个 bundle 层之后）。
+#
+# ── 为什么这一层是空的 ────────────────────────────────────────────────
+# 本包的插件组合已经由 bundle 层栈自身完成了全部挂载与收敛关系，
+# 不需要任何跨插件的补丁。实测验证（dsh --dump-config）确认：
+#
+#   1. @michengai/dsh-codex-ui 在它自己的 bundle patch 里就声明了
+#        - id: ui-sidebar            disabled: true
+#        - id: ui-settings-general   disabled: true
+#        - id: session-title-llm     disabled: true
+#      并由自己重建 Codex 风格侧栏与设置页。这是它的设计意图，
+#      不应在此被覆盖或"修回来"。
+#
+#   2. codex-ui 会重新提供（re-provide）下游插件依赖的插槽：
+#        · sidebar.footer.action  → dsh-cost-meter 的余额/费用卡片
+#        · settings.section       → dsh-cost-meter 与 dsh-whale-girl-pet 的设置分区
+#      因此「官方侧栏被禁用」不会让这些插件失去落点。
+#
+#   3. 其余 9 个插件各自只 insert 一行 host row，或注册独立插槽
+#      （如 ui-git-graph、ui-effort-slider），彼此不争抢同一插槽。
+#
+#   4. 桌宠 dsh-whale-girl-pet 走浮动浮层（position:fixed），
+#      不占用侧栏插槽，与 codex-ui 的侧栏改造无冲突。
+#
+# ── patch 语义提醒（重要）────────────────────────────────────────────
+# loader patch 对已存在条目是「逐键覆盖」而非深合并：
+#   · 只带 `config:` 的补丁不会清掉其它键（如 disabled）——安全；
+#   · 但一旦写了 `disabled:`，就会整体替换该键的现值。
+# 所以在这一层补 `disabled: false` 之类操作会静默撤销上游意图，
+# 需要重启后逐一核对。改动前请先跑 `dsh --profile <name> --dump-config`。
+#
+# ── 如何自定义 ───────────────────────────────────────────────────────
+# 在下方数组里按 loader patch 语法追加条目即可，例如调整某插件 config、
+# disable 掉不想要的插件行。bundle 层栈顺序由 package.json 的
+# dsh.profile.bundles 决定，本文件始终最后生效。
+#
+# 语法示例：
+#   - id: cost-meter                 # 目标条目 id
+#     config:                        # 逐键覆盖该条目的 config
+#       someOption: value
+#   - insert:                        # 往配置树尾部追加新条目
+#       - id: my-plugin
+#         name: my-plugin
+
+[]

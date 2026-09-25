@@ -1,0 +1,11 @@
+# 成品下载区：由 Release 承载，不进版本库
+release/
+
+# 依赖与构建产物
+node_modules/
+pnpm-lock.yaml
+
+# 编辑/系统噪声
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,34 @@
+{
+  "name": "dsh-profile-better-deepseek-harness",
+  "private": true,
+  "dependencies": {
+    "@goodandready/dsh-context-lens": "0.1.24",
+    "dsh-cost-meter": "1.7.37",
+    "dsh-plugin-edit-message": "0.1.5",
+    "@linxin666/dsh-client-ui-git-graph": "0.4.2",
+    "dsh-effort-slider": "1.2.0",
+    "dsh-whale-girl-pet": "0.3.4",
+    "@michengai/dsh-btw": "0.1.13",
+    "@michengai/dsh-simplify": "0.1.10",
+    "@michengai/dsh-code-review": "0.1.7",
+    "@michengai/dsh-codex-ui": "1.1.18"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "@goodandready/dsh-context-lens",
+        "dsh-cost-meter",
+        "dsh-plugin-edit-message",
+        "@linxin666/dsh-client-ui-git-graph",
+        "dsh-effort-slider",
+        "dsh-whale-girl-pet",
+        "@michengai/dsh-btw",
+        "@michengai/dsh-simplify",
+        "@michengai/dsh-code-review",
+        "@michengai/dsh-codex-ui"
+      ]
+    }
+  }
+}

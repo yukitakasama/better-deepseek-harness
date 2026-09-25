@@ -1,0 +1,44 @@
+{
+  "manifestVersion": 5,
+  "type": "profile",
+  "name": "better-deepseek-harness",
+  "version": "1.0.0",
+  "displayName": {
+    "zh-CN": "更好的 DeepSeek Harness",
+    "en-US": "Better DeepSeek Harness"
+  },
+  "description": {
+    "zh-CN": "面向 Coding 用户的 DSH 整合包：Codex 风格工作区侧栏与轮次导航、/review 独立子 Agent 代码审查、/simplify Git 范围代码简化、只读旁问、Codex 式思考强度连续滑块、费用与余额计量、DeepSeek 鲸鱼娘桌宠、AST 上下文压缩与 token 预算守卫、消息回改、Git 分支图。基座 DSH 0.1.7-rc.2，全部插件已逐一校验 peer 兼容与 UI 插槽不冲突。",
+    "en-US": "A coding-oriented DSH modpack: Codex-style workspace sidebar and turn navigation, /review independent code review, /simplify Git-scoped simplification, read-only side-ask, Codex-style reasoning-effort slider, cost and balance metering, a DeepSeek whale-girl desk pet, AST context compression with token budget guard, message re-edit, and a Git graph. Built for DSH 0.1.7-rc.2; every plugin verified for peer compatibility and non-overlapping UI slots."
+  },
+  "author": "yukitakasama",
+  "category": "coding",
+  "dshVersion": "0.1.7-rc.2",
+  "profileName": "better-deepseek-harness",
+  "bundles": [
+    "@deepseek-ai/dsh-base",
+    "@deepseek-ai/dsh-web-app",
+    "@goodandready/dsh-context-lens",
+    "dsh-cost-meter",
+    "dsh-plugin-edit-message",
+    "@linxin666/dsh-client-ui-git-graph",
+    "dsh-effort-slider",
+    "dsh-whale-girl-pet",
+    "@michengai/dsh-btw",
+    "@michengai/dsh-simplify",
+    "@michengai/dsh-code-review",
+    "@michengai/dsh-codex-ui"
+  ],
+  "dependencies": {
+    "@goodandready/dsh-context-lens": "0.1.24",
+    "dsh-cost-meter": "1.7.37",
+    "dsh-plugin-edit-message": "0.1.5",
+    "@linxin666/dsh-client-ui-git-graph": "0.4.2",
+    "dsh-effort-slider": "1.2.0",
+    "dsh-whale-girl-pet": "0.3.4",
+    "@michengai/dsh-btw": "0.1.13",
+    "@michengai/dsh-simplify": "0.1.10",
+    "@michengai/dsh-code-review": "0.1.7",
+    "@michengai/dsh-codex-ui": "1.1.18"
+  }
+}
