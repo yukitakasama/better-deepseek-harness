@@ -18,6 +18,7 @@
 - **上下文守卫** —— AST 压缩、测试日志过滤、token 预算
 - **Git 图** —— 分支选择与提交图
 - **消息回改** —— 中断后把最后一条消息拉回输入框
+- **Computer Use** —— 操控 Windows 原生桌面：UIA 无障碍树观察、截图、鼠标键盘、窗口管理（22 个工具）
 
 ## 安装
 
@@ -29,7 +30,7 @@ dsh --profile better-deepseek-harness
 
 或由 DSH 启动器导入 `.dspack`。
 
-## 插件清单（10 个，全部钉死精确版本）
+## 插件清单（11 个，全部钉死精确版本）
 
 | 插件 | 版本 | 作用 |
 |---|---|---|
@@ -43,6 +44,57 @@ dsh --profile better-deepseek-harness
 | `@goodandready/dsh-context-lens` | 0.1.24 | AST 上下文压缩、token 预算守卫 |
 | `dsh-plugin-edit-message` | 0.1.5 | 消息回改 |
 | `@linxin666/dsh-client-ui-git-graph` | 0.4.2 | Git 分支图 |
+| `dsh-computer-use-win` | 0.1.2 | Windows Computer Use 桌面操控（22 工具） |
+
+### Computer Use 说明
+
+`dsh-computer-use-win` 通过 DSH 内置的 `@deepseek-ai/dsh-mcp-client` 桥接一个
+MCP stdio 服务器，工具以 `mcp__wincu__windows_computer_use_*` 出现：
+
+- **看**：UIA 无障碍树（`control`/`content`/`raw` 三视图）、窗口裁剪截图
+  （PrintWindow → WGC → 屏幕区域三级回退）、OCR 词框
+- **做**：鼠标（标准/双击/拖拽/滚动）、键盘、UIA 语义动作、窗口管理
+- **安全**：急停 failsafe（鼠标停屏幕角落 500ms 拒所有输入）、前台校验
+  fail-closed、identity guard（HWND/PID 变化即拒）、Win 键组合黑名单
+
+零运行时依赖（纯 Node 内置模块 + PowerShell/C# UIA 后端）。
+
+> **本包已修正该插件的 MCP 路径 bug**（见下），否则它在本整合包内无法启动。
+
+## 已知上游 bug 与修正
+
+### `dsh-computer-use-win@0.1.2` 的 MCP 路径解析
+
+该插件自带的 `cordis.patch.yml` 用 `new URL('mcp/server.mjs', baseUrl)` 定位自己的
+MCP 服务器，注释里假设 `baseUrl` 是**该 patch 文件所在目录**。但 dsh 实际把
+`baseUrl` 设为 **profile 根目录**：
+
+```js
+// dsh-app-boot: ctx.baseUrl = pathToFileURL(dirname(absoluteConfigPath)).href + "/"
+```
+
+**后果**：单包 profile 下恰好能跑（包目录 ≈ profile 根），但在多插件 profile 里
+解析成 `<profile>/mcp/server.mjs` → `MODULE_NOT_FOUND`，MCP 起不来，模型看不到
+`mcp__wincu__*` 工具。实测 boot 日志报错即为此。
+
+**本包修法**：在 profile patch 层覆盖该行的 `args`，改用相对 profile 根
+（即 `node_modules` 所在处）的路径：
+
+```yaml
+- id: mcp-dsh-computer-use-win
+  name: "@deepseek-ai/dsh-mcp-client"
+  config:
+    serverName: wincu
+    transport: stdio
+    command: !!js process.execPath
+    args:
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('node_modules/dsh-computer-use-win/mcp/server.mjs', baseUrl))"
+    toolCallTimeoutMs: 60000
+    failOnStartupError: false
+```
+
+修复后 boot 日志出现 `windows-computer-use MCP server 0.1.2 ready`。
+若上游修好此 bug，可以删掉这条补丁。
 
 ## 选型说明
 
@@ -72,10 +124,12 @@ DSH 用 `semver.satisfies(版本, peer范围, { includePrerelease: true })` 校�
 | 测试 | 结果 |
 |---|---|
 | 规格校验（pack-structure v3 + manifest v5 硬约束） | 30/30 PASS |
-| `evaluatePluginCompatibility()` 实测 | 10/10 无阻断 |
-| `pnpm install` 全量解析 | 成功，10 插件就位 |
-| 模拟导入 → `dsh --dump-config` | exit 0，1290 行，零 stderr |
+| `evaluatePluginCompatibility()` 实测 | 11/11 无阻断 |
+| `pnpm install` 全量解析 | 成功，11 插件就位 |
+| 模拟导入 → `dsh --dump-config` | exit 0，1303 行，零 stderr |
 | 真实启动 web 服务 | 成功监听，插件正常初始化 |
+| Computer Use MCP 服务器启动 | `windows-computer-use MCP server 0.1.2 ready` |
+| 插件 MCP self-test（独立验证） | UIA 树 + 截图均 OK（2560×1600） |
 
 ## 自定义
 

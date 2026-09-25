@@ -11,7 +11,8 @@
     "@michengai/dsh-btw": "0.1.13",
     "@michengai/dsh-simplify": "0.1.10",
     "@michengai/dsh-code-review": "0.1.7",
-    "@michengai/dsh-codex-ui": "1.1.18"
+    "@michengai/dsh-codex-ui": "1.1.18",
+    "dsh-computer-use-win": "0.1.2"
   },
   "dsh": {
     "profile": {
@@ -22,6 +23,7 @@
         "dsh-cost-meter",
         "dsh-plugin-edit-message",
         "@linxin666/dsh-client-ui-git-graph",
+        "dsh-computer-use-win",
         "dsh-effort-slider",
         "dsh-whale-girl-pet",
         "@michengai/dsh-btw",

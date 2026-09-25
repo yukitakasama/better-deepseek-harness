@@ -37,12 +37,27 @@
 # disable 掉不想要的插件行。bundle 层栈顺序由 package.json 的
 # dsh.profile.bundles 决定，本文件始终最后生效。
 #
-# 语法示例：
-#   - id: cost-meter                 # 目标条目 id
-#     config:                        # 逐键覆盖该条目的 config
-#       someOption: value
-#   - insert:                        # 往配置树尾部追加新条目
-#       - id: my-plugin
-#         name: my-plugin
+# ── 唯一一条必要补丁：修正 dsh-computer-use-win 的 MCP 路径 ──────────────
+# 该插件自带的 bundle patch 用 `new URL('mcp/server.mjs', baseUrl)` 定位自己的
+# MCP 服务器，注释里假设 baseUrl 是「该 patch 文件所在目录」。但 dsh 实际把
+# baseUrl 设为 **profile 根目录**（见 dsh-app-boot 中
+# `ctx.baseUrl = pathToFileURL(dirname(absoluteConfigPath)).href + "/"`）。
+#
+# 后果：单包 profile 下恰好能跑（包目录≈profile 根），但在多插件 profile 里
+# 会解析成 <profile>/mcp/server.mjs → MODULE_NOT_FOUND，MCP 起不来，
+# 模型看不到 mcp__wincu__* 工具。实测 boot 报错即为此。
+#
+# 修法：profile 根下的 node_modules 正是依赖安装位置，故用
+# node_modules/dsh-computer-use-win/mcp/server.mjs 相对 baseUrl 重新锚定。
+# 这里覆盖的是 args 键，不影响 serverName / transport 等其余配置。
+- id: mcp-dsh-computer-use-win
+  name: "@deepseek-ai/dsh-mcp-client"
+  config:
+    serverName: wincu
+    transport: stdio
+    command: !!js process.execPath
+    args:
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('node_modules/dsh-computer-use-win/mcp/server.mjs', baseUrl))"
+    toolCallTimeoutMs: 60000
+    failOnStartupError: false
 
-[]
