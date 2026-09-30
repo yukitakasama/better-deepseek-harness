@@ -1,8 +1,9 @@
-# better-deepseek-harness
+# 更好的 deepseek harness（codex 风格）
 
 面向 **Coding 用户**的 DeepSeek Harness 整合包，向 Codex 的风格与功能看齐。
 基座 **DSH 0.2.0-rc.2**。
 
+> 整合包标识 `better-deepseek-harness-codex`（仓库名 / `.dspack` 前缀 / profile 名）。
 > 社区整合包，非 DeepSeek 官方产品。
 
 ## 装什么
@@ -24,7 +25,7 @@
 需要 **DSH 0.2.0-rc.2**（本包 `dshVersion` 精确锁定该版本；同时声明兼容 0.2.0-rc.1）。
 
 ```bash
-dsh --profile better-deepseek-harness
+dsh --profile better-deepseek-harness-codex
 ```
 
 或由 DSH 启动器导入 `.dspack`。
@@ -162,7 +163,7 @@ profile patch 层 `overrides/cordis.patch.yml` 为空数组 `[]`——挂载关�
 自身的 bundle patch 完整表达。改动后请跑：
 
 ```bash
-dsh --profile better-deepseek-harness --dump-config
+dsh --profile better-deepseek-harness-codex --dump-config
 ```
 
 > patch 对已存在条目是**逐键覆盖**而非深合并：只带 `config:` 不会清掉 `disabled`，
@@ -186,6 +187,8 @@ dsh --profile better-deepseek-harness --dump-config
 - **移除**：dsh-plugin-edit-message（无 0.2.x 兼容版本）
 - **更新**：全部 10 个插件更新到最新版本并验证兼容性
 - **新增**：manifest 增加 `dshVersions` 和 `launchers` 字段（v5 规范）
+- **改名**：整合包更名「更好的 deepseek harness（codex 风格）」；标识/仓库名/`.dspack`
+  前缀/profile 名统一为 `better-deepseek-harness-codex`
 
 ### v1.1.0
 - 新增 Windows Computer Use 支持

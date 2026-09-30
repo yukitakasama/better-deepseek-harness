@@ -3,3 +3,10 @@ packages:
 
 nodeLinker: hoisted
 autoInstallPeers: false
+minimumReleaseAgeExclude:
+  - '@michengai/dsh-btw@0.1.15'
+  - '@michengai/dsh-code-review@0.1.9'
+  - '@michengai/dsh-codex-ui@1.1.25'
+  - '@michengai/dsh-simplify@0.1.12'
+  - dsh-cost-meter@1.7.47
+  - dsh-whale-girl-pet@0.3.7

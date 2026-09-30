@@ -1,5 +1,5 @@
 {
-  "name": "dsh-profile-better-deepseek-harness",
+  "name": "dsh-profile-better-deepseek-harness-codex",
   "private": true,
   "dependencies": {
     "@goodandready/dsh-context-lens": "0.1.28",

@@ -1,11 +1,11 @@
 {
   "manifestVersion": 5,
   "type": "profile",
-  "name": "better-deepseek-harness",
+  "name": "better-deepseek-harness-codex",
   "version": "2.0.0",
   "displayName": {
-    "zh-CN": "更好的 DeepSeek Harness",
-    "en-US": "Better DeepSeek Harness"
+    "zh-CN": "更好的 deepseek harness（codex 风格）",
+    "en-US": "Better DeepSeek Harness (Codex Style)"
   },
   "description": {
     "zh-CN": "面向 Coding 用户的 DSH 整合包：Codex 风格工作区侧栏与轮次导航、/review 独立子 Agent 代码审查、/simplify Git 范围代码简化、只读旁问、Codex 式思考强度连续滑块、费用与余额计量、DeepSeek 鲸鱼娘桌宠、AST 上下文压缩与 token 预算守卫、Git 分支图、Windows Computer Use 桌面操控（22 个工具，含安全护栏）。基座 DSH 0.2.0-rc.2，全部插件已更新到最新版本并校验兼容性。",
@@ -16,7 +16,7 @@
   "dshVersion": "0.2.0-rc.2",
   "dshVersions": ["0.2.0-rc.2", "0.2.0-rc.1"],
   "launchers": ["dshl", "dsh-packforge-app"],
-  "profileName": "better-deepseek-harness",
+  "profileName": "better-deepseek-harness-codex",
   "bundles": [
     "@deepseek-ai/dsh-base",
     "@deepseek-ai/dsh-web-app",

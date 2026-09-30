@@ -1,4 +1,5 @@
-# better-deepseek-harness · profile patch 层
+# 更好的 deepseek harness（codex 风格）· profile patch 层
+# 包标识：better-deepseek-harness-codex
 #
 # 本文件由整合包携带，安装时落在 profile 根目录，作为「最后一层」应用
 # （dsh 的 profile patch 永远排在每个 bundle 层之后）。
