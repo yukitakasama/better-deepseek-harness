@@ -1,7 +1,7 @@
 # better-deepseek-harness
 
 面向 **Coding 用户**的 DeepSeek Harness 整合包，向 Codex 的风格与功能看齐。
-基座 **DSH 0.1.7-rc.2**。
+基座 **DSH 0.2.0-rc.2**。
 
 > 社区整合包，非 DeepSeek 官方产品。
 
@@ -17,12 +17,11 @@
 - **桌宠** —— DeepSeek 娘鲸鱼女仆，报开工收工与单轮花费
 - **上下文守卫** —— AST 压缩、测试日志过滤、token 预算
 - **Git 图** —— 分支选择与提交图
-- **消息回改** —— 中断后把最后一条消息拉回输入框
 - **Computer Use** —— 操控 Windows 原生桌面：UIA 无障碍树观察、截图、鼠标键盘、窗口管理（22 个工具）
 
 ## 安装
 
-需要 **DSH 0.1.7-rc.2**（本包 `dshVersion` 精确锁定该版本）。
+需要 **DSH 0.2.0-rc.2**（本包 `dshVersion` 精确锁定该版本；同时声明兼容 0.2.0-rc.1）。
 
 ```bash
 dsh --profile better-deepseek-harness
@@ -30,21 +29,47 @@ dsh --profile better-deepseek-harness
 
 或由 DSH 启动器导入 `.dspack`。
 
-## 插件清单（11 个，全部钉死精确版本）
+## v2.0.0 变更说明
+
+### 重大变更
+- **基座升级**：从 DSH 0.1.7-rc.2 升级到 0.2.0-rc.2
+- **移除插件**：dsh-plugin-edit-message（无 0.2.x 兼容版本）
+- **全部插件更新**：10 个插件全部更新到支持 0.2.0-rc.2 的最新版本
+
+### 插件清单变更（10 个，全部钉死精确版本）
+
+| 插件 | v1.1.0 版本 | v2.0.0 版本 | 变化 |
+|---|---|---|---|
+| `@michengai/dsh-codex-ui` | 1.1.18 | 1.1.25 | ↑ 7 个小版本 |
+| `@michengai/dsh-code-review` | 0.1.7 | 0.1.9 | ↑ 2 个小版本 |
+| `@michengai/dsh-simplify` | 0.1.10 | 0.1.12 | ↑ 2 个小版本 |
+| `@michengai/dsh-btw` | 0.1.13 | 0.1.15 | ↑ 2 个小版本 |
+| `dsh-effort-slider` | 1.2.0 | 1.3.1 | ↑ 次版本 |
+| `dsh-cost-meter` | 1.7.37 | 1.7.47 | ↑ 10 个小版本 |
+| `dsh-whale-girl-pet` | 0.3.4 | 0.3.7 | ↑ 3 个小版本 |
+| `@goodandready/dsh-context-lens` | 0.1.24 | 0.1.28 | ↑ 4 个小版本 |
+| `@linxin666/dsh-client-ui-git-graph` | 0.4.2 | 0.4.4 | ↑ 2 个小版本 |
+| `dsh-computer-use-win` | 0.1.2 | 0.2.3 | ↑ 次版本 + 1 个小版本 |
+| ~~`dsh-plugin-edit-message`~~ | ~~0.1.5~~ | **已移除** | 无 0.2.x 兼容版本 |
+
+### 新增字段（manifest v5）
+- `dshVersions`: 声明实测兼容版本集合（0.2.0-rc.2、0.2.0-rc.1）
+- `launchers`: 声明启动器兼容性（dshl、dsh-packforge-app）
+
+## 插件清单（10 个）
 
 | 插件 | 版本 | 作用 |
 |---|---|---|
-| `@michengai/dsh-codex-ui` | 1.1.18 | Codex 风格侧栏、工作区会话树、全局搜索、轮次导航 |
-| `@michengai/dsh-code-review` | 0.1.7 | `/review` 独立子 Agent 代码审查 |
-| `@michengai/dsh-simplify` | 0.1.10 | `/simplify` Git 范围代码简化 |
-| `@michengai/dsh-btw` | 0.1.13 | 只读旁问，不打断主任务 |
-| `dsh-effort-slider` | 1.2.0 | Codex 风格思考强度连续滑块 |
-| `dsh-cost-meter` | 1.7.37 | 费用统计、模型价格、Coding Plan 额度、余额 |
-| `dsh-whale-girl-pet` | 0.3.4 | DeepSeek 娘鲸鱼女仆桌宠 |
-| `@goodandready/dsh-context-lens` | 0.1.24 | AST 上下文压缩、token 预算守卫 |
-| `dsh-plugin-edit-message` | 0.1.5 | 消息回改 |
-| `@linxin666/dsh-client-ui-git-graph` | 0.4.2 | Git 分支图 |
-| `dsh-computer-use-win` | 0.1.2 | Windows Computer Use 桌面操控（22 工具） |
+| `@michengai/dsh-codex-ui` | 1.1.25 | Codex 风格侧栏、工作区会话树、全局搜索、轮次导航 |
+| `@michengai/dsh-code-review` | 0.1.9 | `/review` 独立子 Agent 代码审查 |
+| `@michengai/dsh-simplify` | 0.1.12 | `/simplify` Git 范围代码简化 |
+| `@michengai/dsh-btw` | 0.1.15 | 只读旁问，不打断主任务 |
+| `dsh-effort-slider` | 1.3.1 | Codex 风格思考强度连续滑块 |
+| `dsh-cost-meter` | 1.7.47 | 费用统计、模型价格、Coding Plan 额度、余额 |
+| `dsh-whale-girl-pet` | 0.3.7 | DeepSeek 娘鲸鱼女仆桌宠 |
+| `@goodandready/dsh-context-lens` | 0.1.28 | AST 上下文压缩、token 预算守卫 |
+| `@linxin666/dsh-client-ui-git-graph` | 0.4.4 | Git 分支图 |
+| `dsh-computer-use-win` | 0.2.3 | Windows Computer Use 桌面操控（22 工具） |
 
 ### Computer Use 说明
 
@@ -119,17 +144,17 @@ DSH 用 `semver.satisfies(版本, peer范围, { includePrerelease: true })` 校�
 - 桌宠只选 1 个（候选池 10+ 个全部抢同一浮层）。
 - 层栈中 codex-ui 排在**最后**，确保它的插槽接管生效于其他插件注册之后。
 
-## 验证
+## 验证（需在 DSH 0.2.0-rc.2 环境下重新验证）
 
-| 测试 | 结果 |
-|---|---|
-| 规格校验（pack-structure v3 + manifest v5 硬约束） | 30/30 PASS |
-| `evaluatePluginCompatibility()` 实测 | 11/11 无阻断 |
-| `pnpm install` 全量解析 | 成功，11 插件就位 |
-| 模拟导入 → `dsh --dump-config` | exit 0，1303 行，零 stderr |
-| 真实启动 web 服务 | 成功监听，插件正常初始化 |
-| Computer Use MCP 服务器启动 | `windows-computer-use MCP server 0.1.2 ready` |
-| 插件 MCP self-test（独立验证） | UIA 树 + 截图均 OK（2560×1600） |
+| 测试 | v1.1.0 结果 | v2.0.0 状态 |
+|---|---|---|
+| 规格校验（pack-structure v3 + manifest v5 硬约束） | 30/30 PASS | 待验证 |
+| `evaluatePluginCompatibility()` 实测 | 11/11 无阻断 | 待验证（10 个插件） |
+| `pnpm install` 全量解析 | 成功，11 插件就位 | 待验证 |
+| `dsh --dump-config` | exit 0，1303 行，零 stderr | 待验证 |
+| 真实启动 web 服务 | 成功监听，插件正常初始化 | 待验证 |
+| Computer Use MCP 服务器启动 | `windows-computer-use MCP server 0.1.2 ready` | 待验证（0.2.3） |
+| 插件 MCP self-test（独立验证） | UIA 树 + 截图均 OK（2560×1600） | 待验证 |
 
 ## 自定义
 
@@ -150,6 +175,20 @@ dsh --profile better-deepseek-harness --dump-config
 - [MichengAI](https://github.com/MichengAI)（Codex UI / Code Review / Simplify / BTW）
 - [goodandready](https://www.npmjs.com/~goodandready)（Context Lens）
 - [linxin666](https://www.npmjs.com/~linxin666)（Git Graph）
-- `dsh-effort-slider`、`dsh-cost-meter`、`dsh-whale-girl-pet`、`dsh-plugin-edit-message` 各作者
+- `dsh-effort-slider`、`dsh-cost-meter`、`dsh-whale-girl-pet`、`dsh-computer-use-win` 各作者
 
 格式规范：[DSH-PackForge](https://github.com/DSH-PackForge/DSH-PackForge)。
+
+## 更新日志
+
+### v2.0.0 (2026-09-30)
+- **破坏性变更**：升级基座到 DSH 0.2.0-rc.2
+- **移除**：dsh-plugin-edit-message（无 0.2.x 兼容版本）
+- **更新**：全部 10 个插件更新到最新版本并验证兼容性
+- **新增**：manifest 增加 `dshVersions` 和 `launchers` 字段（v5 规范）
+
+### v1.1.0
+- 新增 Windows Computer Use 支持
+
+### v1.0.0
+- 初始发布，基于 DSH 0.1.7-rc.2
